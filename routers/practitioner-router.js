@@ -1,24 +1,11 @@
 const practitionerRouter = require('express').Router();
 const practitionerdb = require('../database/dbConfig.js');
 
-// practitionerRouter.get('/', (req, res) => {
-//     practitionerdb('practitionerInfo').then(practitioners => {
-//         res.status(200).json(practitioners);
-//     })
-//     .catch(error => {
-//         res.status(500).json({
-//             message: `The Practitioner could not be retrieved: ${error}`
-//         });
-//     });
-
-//     // res.send('Welcome practitioner set up your profile and see a list of your practitioners')
-// });
-
-const Practioners = require('../helpers/practitionerModel.js');
+const Practitioners = require('../helpers/practitionerModel.js');
 
 practitionerRouter.get('/', async (req, res) => {
     try {
-        const practitioners = await Practioners.find();
+        const practitioners = await Practitioners.find();
         if(practitioners.length) {
             res.status(200).json({
                 error: false,
@@ -43,7 +30,7 @@ practitionerRouter.get('/', async (req, res) => {
 
 practitionerRouter.get('/:id', async (req, res) => {
     try {
-        const patient = await Practioners.findById(req.params.id);
+        const patient = await Practitioners.findById(req.params.id);
         if(patient) {
             res.status(200).json({
                 error: false,
@@ -69,7 +56,7 @@ practitionerRouter.get('/:id', async (req, res) => {
 // Find all practitioners with corresponding vaccines route
 practitionerRouter.get('/practitioners-vaccines/:id', async (req, res) => {
     try {
-        const practitioners = await Practioners.findAllpractitionersAndVaccines(req.params.id);
+        const practitioners = await Practitioners.findAllPractitionersAndVaccines(req.params.id);
         if(practitioners.length) {
             res.status(200).json({
                 error: false,
@@ -104,7 +91,7 @@ practitionerRouter.post('/', async (req, res) => {
     } else {
         try {
             const newPatient = req.body;
-            Practioners.insert(newPatient).then(patient => {
+            Practitioners.insert(newPatient).then(patient => {
                 res.status(201).json(patient);
             });        
         } catch (error) {
@@ -118,9 +105,9 @@ practitionerRouter.post('/', async (req, res) => {
 
 practitionerRouter.put('/:id', async (req, res) => {
     try {
-        const patient = await Practioners.update(req.params.id, req.body);
+        const patient = await Practitioners.update(req.params.id, req.body);
         if(patient) {
-            const updatedPatient = await Practioners.findById(req.params.id);
+            const updatedPatient = await Practitioners.findById(req.params.id);
             res.status(200).json({
                 error: false,
                 message: 'The patient was updated in the database',
@@ -144,7 +131,7 @@ practitionerRouter.put('/:id', async (req, res) => {
 
 practitionerRouter.delete('/:id', async (req, res) => {
     try {
-        const patient = await Practioners.remove(req.params.id);
+        const patient = await Practitioners.remove(req.params.id);
         if(patient) {
             res.status(200).json({
                 error: false,

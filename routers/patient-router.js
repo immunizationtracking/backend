@@ -54,30 +54,30 @@ patientRouter.get('/:id', async (req, res) => {
 });
 
 // Find all patients with corresponding vaccines route
-patientRouter.get('/patients-vaccines/:id', async (req, res) => {
-    try {
-        const patients = await Patients.findAllPatientsAndVaccines(req.params.id);
-        if(patients.length) {
-            res.status(200).json({
-                error: false,
-                message: 'Your family members and vaccines were found successfully',
-                patients
-            });
-        } else {
-            res.status(200).json({
-                error: true,
-                message: 'Your family members and vaccines could not be found',
-                patients: []
-            });
-        }
-    } catch (error) {
-        res.status(500).json({
-            error: true,
-            patients: [],
-            message: `There was an error processing your request: ${error}`
-        });
-    }
-});
+// patientRouter.get('/patients-vaccines/:id', async (req, res) => {
+//     try {
+//         const patients = await Patients.findAllPatientsAndVaccines(req.params.id);
+//         if(patients.length) {
+//             res.status(200).json({
+//                 error: false,
+//                 message: 'Your family members and vaccines were found successfully',
+//                 patients
+//             });
+//         } else {
+//             res.status(200).json({
+//                 error: true,
+//                 message: 'Your family members and vaccines could not be found',
+//                 patients: []
+//             });
+//         }
+//     } catch (error) {
+//         res.status(500).json({
+//             error: true,
+//             patients: [],
+//             message: `There was an error processing your request: ${error}`
+//         });
+//     }
+// });
 
 // Create new Patient
 patientRouter.post('/', async (req, res) => {

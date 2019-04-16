@@ -19,10 +19,10 @@ function findById(id) {
     .first();
 }
 
-async function findAllPatientsAndVaccines(patientUserId) {
-  const vaccines = await patientdb("vaccines").where({ patientUserId });
+async function findAllPatientsAndVaccines(id) {
+  const vaccines = await patientdb("vaccines").where({ patientInfo_id: id });
   return (patients = await patientdb("patientInfo")
-    .where({ patientUserId })
+    .where({ patientUserId: id})
     .map(patient => {
       const patientVaccines = vaccines.filter(
         vaccine => vaccine.patientInfo_id === patientInfo.id

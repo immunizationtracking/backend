@@ -15,6 +15,13 @@ exports.up = function(knex, Promise) {
       .inTable("users")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    userInfoTbl
+      .integer("practitionerId")
+      .unsigned()
+      .references("id")
+      .inTable("practitionerInfo")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
   });
 };
 
