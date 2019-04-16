@@ -36,7 +36,7 @@ async function findAllPractitionersAndVaccines(practitionerUserId) {
 function insert(practitioner) {
   return practitionerdb("practitionerInfo")
     .insert(practitioner)
-    .then(ids => 1);
+    .then(([id]) => this.findById(id));
 }
 
 function update(id, changes) {
@@ -47,8 +47,8 @@ function update(id, changes) {
 
 async function remove(id) {
   const vaccines = await practitionerdb("vaccines")
-    .where({ practitionerInfo_id: id })
-    .delete();
+    .where({ practitioner_id: id })
+    .del();
   const practitioner = await practitionerdb("practitionerInfo")
     .where({ id })
     .first()

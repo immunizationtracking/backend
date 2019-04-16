@@ -34,7 +34,7 @@ async function findAllPatientsAndVaccines(id) {
 function insert(patient) {
   return patientdb("patientInfo")
     .insert(patient)
-    .then(ids => 1);
+    .then(([id]) => this.findById(id));
 }
 
 function update(id, changes) {

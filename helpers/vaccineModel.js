@@ -27,7 +27,7 @@ function findByVaccineId(vaccineId) {
 }
 
 function insert(vaccine) {
-    return vaccinedb('vaccines').insert(vaccine).then(ids => ids);
+    return vaccinedb('vaccines').insert(vaccine).then(([id]) => this.findByVaccineId(id));
 };
 
 function update(id, changes) {

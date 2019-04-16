@@ -117,7 +117,7 @@ patientRouter.put('/:id', async (req, res) => {
             res.status(404).json({
                 error: true,
                 patient: {},
-                message: 'The patient could not be updated in teh database.'
+                message: 'The patient could not be updated in the database.'
             });
         }
     } catch (error) {

@@ -81,8 +81,8 @@ practitionerRouter.get('/practitioners-vaccines/:id', async (req, res) => {
 
 // Create new Patient
 practitionerRouter.post('/', async (req, res) => {
-    const { patientUserId, firstName, lastName } = req.body;
-    if(!patientUserId || !firstName || !lastName ) {
+    const { practitionerUserId, firstName, lastName } = req.body;
+    if(!practitionerUserId || !firstName || !lastName ) {
         res.status(406).json({
             error: true,
             patient: {},
