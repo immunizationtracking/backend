@@ -1,17 +1,23 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable("userInfo", userInfoTbl => {
+  return knex.schema.createTable("patientInfo", userInfoTbl => {
     userInfoTbl.increments();
 
     userInfoTbl.string("firstName").notNullable();
     userInfoTbl.string("lastName").notNullable();
     userInfoTbl.string("gender");
-    userInfoTbl.string("title");
     userInfoTbl.date("dateOfBirth");
-    userInfoTbl.string("nameOfOffice");
     userInfoTbl.text("whoCanAccess");
+    userInfoTbl
+      .integer("patientUserId")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("users")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists("userInfo");
+  return knex.schema.dropTableIfExists("patientInfo");
 };
