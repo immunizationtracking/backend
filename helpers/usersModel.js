@@ -6,7 +6,9 @@ module.exports = {
   findById,
   insert,
   update,
-  remove
+  remove,
+  add,
+  findByIdII
 };
 
 function find() {
@@ -43,7 +45,7 @@ function insert(creds) {
   return (user = userdb("users")
     .insert(creds)
     .then([ids => 1]));
-}
+};
 
 function update(id, changes) {
   return userdb("users")
@@ -55,4 +57,15 @@ function remove(id) {
   return userdb("users")
     .where({ id })
     .del();
+};
+
+async function add(user) {
+  const [id] = await userdb('users').insert(user);
+  return findById(id);
+}
+
+function findByIdII(id) {
+  return db('users')
+    .where({ id })
+    .first();
 }
