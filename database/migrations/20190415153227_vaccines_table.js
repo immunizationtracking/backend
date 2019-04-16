@@ -9,21 +9,22 @@ exports.up = function(knex, Promise) {
     vaccinesTbl.date("nextShotDue");
     vaccinesTbl.text("doseInfo");
     vaccinesTbl.text("doseNumber").notNullable();
+    vaccinesTbl.boolean("hasAccess");
     vaccinesTbl
       .integer("patientInfo_id")
       .unsigned()
       .notNullable()
       .references("id")
-      .inTable("userInfo")
+      .inTable("patientInfo")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
 
     vaccinesTbl
-      .integer("institute_id")
+      .integer("practitioner_id")
       .unsigned()
       .notNullable()
       .references("id")
-      .inTable("users")
+      .inTable("practitionerInfo")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
   });

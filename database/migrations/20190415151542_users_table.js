@@ -9,10 +9,7 @@ exports.up = function(knex, Promise) {
     usersTbl.string("password").notNullable();
     usersTbl.string("firstName").notNullable();
     usersTbl.string("lastName").notNullable();
-    usersTbl
-      .string("email")
-      .notNullable()
-      .unique();
+    usersTbl.string("email").notNullable();
     usersTbl.string("role").notNullable();
   });
 };
