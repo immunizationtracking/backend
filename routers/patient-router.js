@@ -54,30 +54,42 @@ patientRouter.get('/:id', async (req, res) => {
 });
 
 // Find all patients with corresponding vaccines route
-// patientRouter.get('/patients-vaccines/:id', async (req, res) => {
-//     try {
-//         const patients = await Patients.findAllPatientsAndVaccines(req.params.id);
-//         if(patients.length) {
-//             res.status(200).json({
-//                 error: false,
-//                 message: 'Your family members and vaccines were found successfully',
-//                 patients
-//             });
-//         } else {
-//             res.status(200).json({
-//                 error: true,
-//                 message: 'Your family members and vaccines could not be found',
-//                 patients: []
-//             });
-//         }
-//     } catch (error) {
-//         res.status(500).json({
-//             error: true,
-//             patients: [],
-//             message: `There was an error processing your request: ${error}`
-//         });
-//     }
-// });
+patientRouter.get('/patients-vaccines/:id', async (req, res) => {
+    try {
+        const patients = await Patients.findAllPatientsAndVaccines(req.params.id);
+        if(patients.length) {
+            res.status(200).json({
+                error: false,
+                message: 'Your family members and vaccines were found successfully',
+                patients
+            });
+        } else {
+            res.status(200).json({
+                error: true,
+                message: 'Your family members and vaccines could not be found',
+                patients: []
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: true,
+            patients: [],
+            message: `There was an error processing your request: ${error}`
+        });
+    }
+});
+
+// See the vaccines for each patient
+patientRouter.get('/:id/vaccines', async (req, res) => {
+    patientdb('patientInfo').where(req.params).first().then(patient => {
+        patientdb('vaccines').where({ patientInfo_id: req.params.id }).then(vaccines => {
+            patient.vaccines = vaccines;
+            res.status(200).json(patient);
+        });
+    }).catch(error => {
+        res.status(500).json({ message: `Error occurred while getting patients' vaccines: ${error}`})
+    });    
+ });
 
 // Create new Patient
 patientRouter.post('/', async (req, res) => {

@@ -6,7 +6,8 @@ module.exports = {
   findAllPatientsAndVaccines,
   insert,
   remove,
-  update
+  update,
+  getPatientVaccines
 };
 
 function find() {
@@ -21,14 +22,20 @@ function findById(id) {
 
 async function findAllPatientsAndVaccines(id) {
   const vaccines = await patientdb("vaccines").where({ patientInfo_id: id });
-  return (patients = await patientdb("patientInfo")
+  return patients = await patientdb("patientInfo")
     .where({ patientUserId: id})
     .map(patient => {
       const patientVaccines = vaccines.filter(
-        vaccine => vaccine.patientInfo_id === patientInfo.id
+        vaccine => vaccine.patientInfo_id === patients.id
       );
       return { ...patient, vaccines: patientVaccines };
-    }));
+    });
+};
+
+function getPatientVaccines(patientId) {
+  return patientdb("vaccines")
+    .where("patientInfo_id", patientId)
+    .then(vaccines => vaccines.map(vaccine => ({ ...vaccine })));
 }
 
 function insert(patient) {
