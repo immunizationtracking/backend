@@ -16,14 +16,14 @@ const Users = require('../helpers/usersModel.js');
     
 // });
 
-usersRouter.get('/', (req, res) => {
+usersRouter.get('/', restricted, (req, res) => {
     Users.find().then(users => {
         res.json(users);
     }).catch(error => res.send(error));
 });
 
 function restricted(req, res, next) {
-    const { username, password } = req.header;
+    const { username, password } = req.headers;
 
     if(username && password) {
         Users.findBy({ username }).first().then(user => {
