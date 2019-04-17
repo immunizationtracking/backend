@@ -41,8 +41,8 @@ async function findAllPractitionersAndVaccines(practitionerUserId) {
 
 function insert(practitioner) {
   return practitionerdb("practitionerInfo")
-    .returning("id")
     .insert(practitioner)
+    .returning("id")
     .then(([id]) => this.findById(id));
 }
 

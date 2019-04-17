@@ -28,8 +28,8 @@ function findByVaccineId(vaccineId) {
 
 function insert(vaccine) {
   return vaccinedb("vaccines")
-    .returning("id")
     .insert(vaccine)
+    .returning("id")
     .then(([id]) => this.findByVaccineId(id));
 }
 

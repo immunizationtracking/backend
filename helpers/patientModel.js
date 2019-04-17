@@ -45,8 +45,8 @@ function getPatientVaccines(patientId) {
 // };
 function insert(patient) {
   return patientdb("patientInfo")
-    .returning("id")
     .insert(patient)
+    .returning("id")
     .then(([id]) => this.findById(id));
 }
 

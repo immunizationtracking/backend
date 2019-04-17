@@ -68,8 +68,8 @@ function remove(id) {
 
 async function add(user) {
   const [id] = await userdb("users")
-    .returning("id")
-    .insert(user);
+    .insert(user)
+    .returning("id");
   return findById(id);
 }
 
