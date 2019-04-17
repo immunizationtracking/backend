@@ -58,7 +58,7 @@ Use [this rubric](https://docs.google.com/spreadsheets/d/1sFgvt8HtqNCw32YC8Wvrg
   "lastName": "Somebody",                  // String, required
   "title": "Dr.",                         // String
   "nameOfOffice": "Mayo clinic",         // String, required
-  "practitionerUserIduserId": 1         // Integer, required (foreign key reference to "users" table)
+  "practitionerUserId": 1         // Integer, required (foreign key reference to "users" table)
 }
 ```
 
@@ -117,8 +117,7 @@ Use [this rubric](https://docs.google.com/spreadsheets/d/1sFgvt8HtqNCw32YC8Wvrg
 | patients      | PUT    | /api/patients/:id          | Uses the information sent inside the `body` to update a single `patient` using the id sent in the URL parameters of the request and returns a message along with the updated `journal`.        |
 | patients      | DELETE | /api/patients/:id          | Removes a `patient` in the database using the id sent in the URL parameters of the request.                                                                                                  |
 | vaccines      | GET    | /api/vaccines              | Retrieves an array of `vaccines` objects and returns a message with the array in the `body` of the response.                                                                                   |
-| vaccines      | GET    | /api/vaccines/:id          | Retrieves a single `vaccine` using the id sent in the URL parameters of the request and returns a message with the `vaccines` inside the `body` of the response.         |
-                                                                               |
-| vaccines | POST   | /api/vaccines             | Uses the information sent inside the `body` to create a new `exercise` for a specified user by included `userId` and returns a message along with the new `exercise`.                          |
-| vaccines | PUT    | /api/vaccines/:id         | Uses the information sent inside the `body` to update a single `exercise` using the id sent in the URL parameters of the request and returns a message along with the updated `exercise`.      |
-| vaccines | DELETE | /api/vaccines/:id         | Removes an `exercise` in the database using the id sent in the URL parameters of the request.
+| vaccines      | GET    | /api/vaccines/:id          | Retrieves a single `vaccine` using the id sent in the URL parameters of the request and returns a message with the `vaccines` inside the `body` of the response.        
+| vaccines | POST   | /api/vaccines             | Uses the information sent inside the `body` to create a new `vaccine` for the practitioner user by included `practitioner_id` and returns a message along with the new `vaccines`.                          |
+| vaccines | PUT    | /api/vaccines/:id         | Uses the information sent inside the `body` to update a single `vaccine` using the id sent in the URL parameters of the request and returns a message along with the updated `vaccines`.      |
+| vaccines | DELETE | /api/vaccines/:id         | Removes a `vaccine` in the database using the id sent in the URL parameters of the request.
