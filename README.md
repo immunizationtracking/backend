@@ -71,7 +71,8 @@ Use [this rubric](https://docs.google.com/spreadsheets/d/1sFgvt8HtqNCw32YC8Wvrg
   "lastName": "Stark",                     // String, required
   "gender": "F",                          // String
   "dateOfBirth": "4/8/1017",             // String
-  "practitionerId": 1                   // Integer, required (foreign key reference to "practitionerInfo" table)
+  "practitionerId": 1                   // Integer, required (foreign key reference to "practitionerInfo" table) 
+  "patientUserId": 1                   // Integer, required (foreign key reference to "users" table)
 }
 ```
 
