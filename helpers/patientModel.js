@@ -22,15 +22,15 @@ function findById(id) {
 
 async function findAllPatientsAndVaccines(id) {
   const vaccines = await patientdb("vaccines").where({ patientInfo_id: id });
-  return patients = await patientdb("patientInfo")
-    .where({ patientUserId: id})
+  return (patients = await patientdb("patientInfo")
+    .where({ patientUserId: id })
     .map(patient => {
       const patientVaccines = vaccines.filter(
         vaccine => vaccine.patientInfo_id === patients.id
       );
       return { ...patient, vaccines: patientVaccines };
-    });
-};
+    }));
+}
 
 function getPatientVaccines(patientId) {
   return patientdb("vaccines")
@@ -38,9 +38,15 @@ function getPatientVaccines(patientId) {
     .then(vaccines => vaccines.map(vaccine => ({ ...vaccine })));
 }
 
+// function insert(patient) {
+//   return patientdb("patientInfo")
+//     .insert(patient)
+//     .then(([id]) => this.findById(id));
+// };
 function insert(patient) {
   return patientdb("patientInfo")
     .insert(patient)
+    .returning("id")
     .then(([id]) => this.findById(id));
 }
 
