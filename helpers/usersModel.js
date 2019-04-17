@@ -41,11 +41,18 @@ function findById(id) {
     .first();
 }
 
+// function insert(creds) {
+//   return (user = userdb("users")
+//     .insert(creds)
+//     .then([ids => 1]));
+// };
+
 function insert(creds) {
   return (user = userdb("users")
+    .returning("id")
     .insert(creds)
     .then([ids => 1]));
-};
+}
 
 function update(id, changes) {
   return userdb("users")
@@ -57,13 +64,15 @@ function remove(id) {
   return userdb("users")
     .where({ id })
     .del();
-};
+}
 
 async function add(user) {
-  const [id] = await userdb('users').insert(user);
+  const [id] = await userdb("users")
+    .returning("id")
+    .insert(user);
   return findById(id);
 }
 
 function findBy(filter) {
-  return userdb('users').where(filter);
+  return userdb("users").where(filter);
 }

@@ -1,5 +1,6 @@
 const express = require("express");
 const helmet = require("helmet");
+const cors = require("cors");
 
 const patientRouter = require('../routers/patient-router.js');
 const practitionerRouter = require('../routers/practitioner-router.js');
@@ -13,6 +14,7 @@ const server = express();
 
 server.use(express.json());
 server.use(helmet());
+server.use(cors());
 
 server.get("/", (req, res) => {
   res.send(

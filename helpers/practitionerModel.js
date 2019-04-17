@@ -33,8 +33,15 @@ async function findAllPractitionersAndVaccines(practitionerUserId) {
     }));
 }
 
+// function insert(practitioner) {
+//   return practitionerdb("practitionerInfo")
+//     .insert(practitioner)
+//     .then(([id]) => this.findById(id));
+// };
+
 function insert(practitioner) {
   return practitionerdb("practitionerInfo")
+    .returning("id")
     .insert(practitioner)
     .then(([id]) => this.findById(id));
 }
