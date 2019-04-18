@@ -82,13 +82,13 @@ practitionerRouter.get("/:id/patients", (req, res) => {
 
 // });
 
-practitionerRouter.get("/:id/allowed-patients", async (req, res) => {
-  const { id } = req.params;
+// practitionerRouter.get("/:id/allowed-patients", async (req, res) => {
+//   const { id } = req.params;
 
-  try {
-    const practitioner = await practitionerdb('practitionerInfo').join
-  }
-});
+//   try {
+//     const practitioner = await practitionerdb('practitionerInfo').join
+//   }
+// });
 
 // Find vaccines each practitioner dealt with
 practitionerRouter.get("/:id/vaccines", (req, res) => {
