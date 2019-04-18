@@ -20,7 +20,7 @@ const authenticate = require('../auth/authenticate.js');
 
 // });
 
-usersRouter.get("/", restricted, (req, res) => {
+usersRouter.get("/", (req, res) => {
   Users.find()
     .then(users => {
       res.json(users);
