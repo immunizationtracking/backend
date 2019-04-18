@@ -67,12 +67,27 @@ practitionerRouter.get("/:id/patients", (req, res) => {
         });
     })
     .catch(error => {
-      res
-        .status(500)
-        .json({
-          message: `Error occurred while getting practitioner's patients: ${error}`
-        });
+      res.status(500).json({
+        message: `Error occurred while getting practitioner's patients: ${error}`
+      });
     });
+});
+
+// practitionerRouter.get("/:id/allowed-patients", (req, res) => {
+//   const {id} = req.params;
+//   practitionerdb("practitionerInfo")
+//     .where({'id': id}).then(practitioner => {
+//       practitioner.join('patientInfo')
+//     })
+
+// });
+
+practitionerRouter.get("/:id/allowed-patients", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const practitioner = await practitionerdb('practitionerInfo').join
+  }
 });
 
 // Find vaccines each practitioner dealt with
@@ -89,14 +104,11 @@ practitionerRouter.get("/:id/vaccines", (req, res) => {
         });
     })
     .catch(error => {
-      res
-        .status(500)
-        .json({
-          message: `Error occurred while getting vaccine data of the practitioners: ${error}`
-        });
+      res.status(500).json({
+        message: `Error occurred while getting vaccine data of the practitioners: ${error}`
+      });
     });
 });
-
 
 // Create new Patient
 practitionerRouter.post("/", async (req, res) => {
