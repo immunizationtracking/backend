@@ -4,6 +4,9 @@ const bcrypt = require("bcryptjs");
 
 const userdb = require("../database/dbConfig.js");
 const Users = require("../helpers/usersModel.js");
+const authenticate = require('../auth/authenticate.js');
+
+// const { authenticate, jwtKey } = require('../auth/authenticate.js');
 // const restricted = require('../auth/restricted-middleware.js');
 
 // usersRouter.get('/', (req, res) => {

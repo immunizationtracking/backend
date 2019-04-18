@@ -97,6 +97,7 @@ practitionerRouter.get("/:id/vaccines", (req, res) => {
     });
 });
 
+
 // Create new Patient
 practitionerRouter.post("/", async (req, res) => {
   const { practitionerUserId, firstName, lastName } = req.body;

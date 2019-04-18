@@ -3,6 +3,8 @@ const patientRouter = require('express').Router();
 const patientdb = require('../database/dbConfig.js');
 const Patients = require('../helpers/patientModel.js');
 
+const authenticate = require('../auth/authenticate.js')
+
 patientRouter.get('/', async (req, res) => {
     try {
         const patients = await Patients.find();
