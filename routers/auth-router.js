@@ -74,7 +74,9 @@ generateToken = user => {
   const payload = {
     subject: user.id,
     username: user.username,
-    roles: user.role
+    roles: user.role,
+    whoCanAccess: user.whoCanAccess,
+    hasAccess: user.hasAccess
   };
   const options = {
     expiresIn: "1d"

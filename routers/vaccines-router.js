@@ -1,6 +1,7 @@
 const vaccineRouter = require("express").Router();
 const vaccinesdb = require("../database/dbConfig.js");
 const Vaccines = require("../helpers/vaccineModel.js");
+// const checkRole = require("../auth/checkRole.js");
 
 
 vaccineRouter.get("/", async (req, res) => {
@@ -168,5 +169,18 @@ vaccineRouter.delete("/:id", async (req, res) => {
     });
   }
 });
+
+// function access() {
+//   return function(req, res, next) {
+//     if (
+//       req.decodedJwt &&
+//       !req.decodedJwt.hasAccess
+//     ) {
+//       next();
+//     } else {
+//       res.status(403).json({ message: 'you have no power here' });
+//     }
+//   };
+// };
 
 module.exports = vaccineRouter;
