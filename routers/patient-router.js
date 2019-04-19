@@ -15,10 +15,9 @@ patientRouter.get('/', async (req, res) => {
                 patients
             });
         } else {
-            res.status(404).json({
-                error: true,
+            res.status(404).json({                
                 patients: [],
-                message: 'The patients could not be found.'
+                message: 'The patient array is empty'
             });
         }
     } catch (error) {

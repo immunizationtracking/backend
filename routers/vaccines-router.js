@@ -54,7 +54,6 @@ vaccineRouter.get("/:id", async (req, res) => {
 });
 
 
-
 vaccineRouter.post("/", async (req, res) => {
   const {
     immunizationName,
@@ -144,6 +143,33 @@ vaccineRouter.put("/:id", async (req, res) => {
     });
   }
 });
+
+//Example code
+vaccineRouter.get("/:id/practvaccine", async (req, res) => {
+  try {
+    const vaccine = await Vaccines.findByPractitionerId(req.params.id);
+    if (vaccine) {
+      res.status(200).json({
+        error: false,
+        message: "Your vaccine was retrieved successfully",
+        vaccine
+      });
+    } else {
+      res.status(404).json({
+        error: true,
+        vaccine: {},
+        message: "Your vaccine could not be found"
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: true,
+      vaccine: {},
+      message: `Theere was a problem with your request: ${error}.`
+    });
+  }
+});
+
 
 vaccineRouter.delete("/:id", async (req, res) => {
   try {

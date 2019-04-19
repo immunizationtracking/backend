@@ -73,22 +73,111 @@ practitionerRouter.get("/:id/patients", (req, res) => {
     });
 });
 
-// practitionerRouter.get("/:id/allowed-patients", (req, res) => {
-//   const {id} = req.params;
-//   practitionerdb("practitionerInfo")
-//     .where({'id': id}).then(practitioner => {
-//       practitioner.join('patientInfo')
-//     })
-
-// });
-
+// Practitioners can see only the patients that gave them access as well as their own info.
 // practitionerRouter.get("/:id/allowed-patients", async (req, res) => {
 //   const { id } = req.params;
-
 //   try {
-//     const practitioner = await practitionerdb('practitionerInfo').join
+//     const patients = await practitionerdb("practitionerInfo").join(
+//       "patientInfo",
+//       "practitionerInfo.nameOfOffice",
+//       "=",
+//       "patientInfo.whoCanAccess"
+//     ).where({'practitionerInfo.id': id });
+//     res.status(200).json(patients);
+//   } catch (error) {
+//     res.status(500).json({ message: `could not retrieve patients`});
 //   }
 // });
+
+// Practitioners can see only the patients that gave them access
+practitionerRouter.get("/:id/allowed-patients", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const patients = await practitionerdb("practitionerInfo")
+      .join(
+        "patientInfo",
+        "practitionerInfo.nameOfOffice",
+        "=",
+        "patientInfo.whoCanAccess"
+      )
+      .select(
+        "patientInfo.id",
+        "patientInfo.firstName",
+        "patientInfo.lastName",
+        "patientInfo.gender",
+        "patientInfo.lastName",
+        "patientInfo.dateOfBirth"
+      )
+      .where({ "practitionerInfo.id": id });
+    res.status(200).json(patients);
+  } catch (error) {
+    res.status(500).json({ message: `could not retrieve patients` });
+  }
+});
+
+
+//Practitioners can see only the patients that gave them access and their vaccine records
+// practitionerRouter.get("/:id/allowed-patientvaccine", async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const patientVaccines = await practitionerdb("practitionerInfo")
+//       .join(
+//         "patientInfo",
+//         "practitionerInfo.nameOfOffice",
+//         "=",
+//         "patientInfo.whoCanAccess"
+//       ).join('vaccines', 'patientInfo.id', '=', 'vaccines.patientInfo_id')
+//       .select(
+//         "patientInfo.id",
+//         "patientInfo.firstName",
+//         "patientInfo.lastName",
+//         "patientInfo.gender",        
+//         "patientInfo.dateOfBirth",
+//         "vaccines.immunizationName",
+//         'vaccines.dateReceived',
+//         'vaccines.placeReceived',
+//         'vaccines.givenBy',
+//         'vaccines.nextShotDue',
+//         'vaccines.doseInfo',
+//         'vaccines.doseNumber'
+//       )
+//       .where({ "practitionerInfo.id": id });
+//     res.status(200).json(patientVaccines);
+//   } catch (error) {
+//     res.status(500).json({ message: `could not retrieve patients` });
+//   }
+// });
+
+practitionerRouter.get("/:id/allowed-patientvaccine", async (req, res) => {
+    const { id } = req.params;
+    try {
+      const patientVaccines = await practitionerdb("practitionerInfo")
+        .join(
+          "patientInfo",
+          "practitionerInfo.nameOfOffice",
+          "=",
+          "patientInfo.whoCanAccess"
+        ).join('vaccines', 'patientInfo.id', '=', 'vaccines.patientInfo_id')
+        .select(
+          "patientInfo.id",
+          "patientInfo.firstName",
+          "patientInfo.lastName",
+          "patientInfo.gender",        
+          "patientInfo.dateOfBirth",
+          "vaccines.immunizationName",
+          'vaccines.dateReceived',
+          'vaccines.placeReceived',
+          'vaccines.givenBy',
+          'vaccines.nextShotDue',
+          'vaccines.doseInfo',
+          'vaccines.doseNumber'
+        )
+        .where({ "practitionerInfo.id": id });
+      res.status(200).json(patientVaccines);
+    } catch (error) {
+      res.status(500).json({ message: `could not retrieve patients` });
+    }
+  });
 
 // Find vaccines each practitioner dealt with
 practitionerRouter.get("/:id/vaccines", (req, res) => {
