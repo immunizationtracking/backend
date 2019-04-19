@@ -7,20 +7,24 @@ module.exports = {
   findByVaccineId,
   insert,
   update,
-  remove
+  remove,
+  findByPractitionerPatientId
 };
 
 function find() {
   return vaccinedb("vaccines");
 }
 
-function findByPatientId(patientInfo_id) {
-  return vaccinedb("vaccines").where({ id: patientInfo_id });
+function findByPatientId(patientId) {
+  return vaccinedb("vaccines").where({ patientInfo_id: patientId });
 }
 
-function findByPractitionerId(practitioner_id) {
-  return vaccinedb("vaccines").where({ id: practitioner_id });
+function findByPractitionerId(doctorId) {
+  return vaccinedb("vaccines").where({ practitioner_id: doctorId });
 }
+function findByPractitionerPatientId(filterId) {
+    return vaccinedb("vaccines").where({ practitioner_id: filterId, patientInfo_id: filterId });
+  }
 
 function findByVaccineId(vaccineId) {
   return vaccinedb("vaccines").where({ id: vaccineId });

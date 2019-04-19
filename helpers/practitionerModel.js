@@ -6,7 +6,8 @@ module.exports = {
   findAllPractitionersAndVaccines,
   insert,
   remove,
-  update
+  update,
+  findVaccineById
 };
 
 function find() {
@@ -61,4 +62,9 @@ async function remove(id) {
     .first()
     .del();
   return practitioner;
+};
+
+function findVaccineById(id) {
+  return practitionerdb("vaccines")
+    .where({ patientInfo_id: id });
 }
