@@ -53,6 +53,31 @@ vaccineRouter.get("/:id", async (req, res) => {
   }
 });
 
+vaccineRouter.get("/:id/practvac", async (req, res) => {
+  try {
+    const vaccine = await Vaccines.findByPractitionerId(req.params.id);
+    if (vaccine) {
+      res.status(200).json({
+        error: false,
+        message: "You vaccine was retrieved successfully",
+        vaccine
+      });
+    } else {
+      res.status(404).json({
+        error: true,
+        vaccine: {},
+        message: "Your vaccine could not be found"
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: true,
+      vaccine: {},
+      message: `Theere was a problem with your request: ${error}.`
+    });
+  }
+});
+
 
 vaccineRouter.post("/", async (req, res) => {
   const {
@@ -143,6 +168,42 @@ vaccineRouter.put("/:id", async (req, res) => {
     });
   }
 });
+
+// vaccineRouter.put("/:id", async (req, res) => {
+//   try {
+//     const updatedVaccine = await Vaccines.update(req.params.id, req.body);
+//     if (updatedVaccine) {
+//       const vaccine = await Vaccines.findByPractitionerId(req.params.id);
+//       if (vaccine) {
+//         res.status(200).json({
+//           error: false,
+//           message: "The vaccine info was updated successfully",
+//           vaccine
+//         });
+//       } else {
+//         res.status(400).json({
+//           error: true,
+//           vaccine: {},
+//           message: `The vaccine info was updated but could not be returned`
+//         });
+//       }
+//     } else {
+//       res.status(404).json({
+//         error: true,
+//         vaccine: {},
+//         message: `The vaccine could not be updated: ${error}`
+//       });
+//     }
+//   } catch (error) {
+//     res.status(500).json({
+//       error: true,
+//       vaccine: {},
+//       message: `There was a problem with your request: ${error}.`
+//     });
+//   }
+// });
+
+
 
 //Example code
 vaccineRouter.get("/:id/practvaccine", async (req, res) => {
