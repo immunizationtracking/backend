@@ -25,7 +25,7 @@ server.get("/", (req, res) => {
   );
 });
 
-server.use('/api/patients', authenticate, patientRouter);
+server.use('/api/patients', patientRouter);
 server.use('/api/practitioner', practitionerRouter);
 server.use('/api/vaccines', vaccineRouter);
 server.use('/api/users', usersRouter);
