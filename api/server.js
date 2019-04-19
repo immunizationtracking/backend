@@ -2,16 +2,13 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 
-const patientRouter = require('../routers/patient-router.js');
-const practitionerRouter = require('../routers/practitioner-router.js');
-const vaccineRouter = require('../routers/vaccines-router.js');
-const usersRouter = require('../routers/users-router.js');
-const authRouter = require('../routers/auth-router.js');
+const patientRouter = require("../routers/patient-router.js");
+const practitionerRouter = require("../routers/practitioner-router.js");
+const vaccineRouter = require("../routers/vaccines-router.js");
+const usersRouter = require("../routers/users-router.js");
+const authRouter = require("../routers/auth-router.js");
 
-const authenticate = require('../auth/authenticate.js');
-
-
-
+const authenticate = require("../auth/authenticate.js");
 
 const server = express();
 
@@ -25,11 +22,11 @@ server.get("/", (req, res) => {
   );
 });
 
-server.use('/api/patients', patientRouter);
-server.use('/api/practitioner', practitionerRouter);
-server.use('/api/vaccines', vaccineRouter);
-server.use('/api/users', usersRouter);
-server.use('/api/auth', authRouter);
+server.use("/api/patients", authenticate, patientRouter);
+server.use("/api/practitioner", authenticate, practitionerRouter);
+server.use("/api/vaccines", authenticate, vaccineRouter);
+server.use("/api/users", authenticate, usersRouter);
+server.use("/api/auth", authRouter);
 // server.use('/api/vaccines', authenticate, checkRole('Practitioner'), vaccineRouter);
 
 module.exports = server;

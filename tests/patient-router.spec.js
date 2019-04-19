@@ -4,7 +4,7 @@ const patientdb = require("../database/dbConfig.js");
 
 describe("patient-router.js", () => {
   //   afterEach(async () => {
-  //   await gamesdb("games").truncate();
+  //   await patientdb("patientInfo").truncate();
   // });
 
   describe("GET /", () => {
@@ -129,9 +129,9 @@ describe("patient-router.js", () => {
     });
 
     describe("post(/api/patients)", () => {
-      afterEach(async () => {
-        await patientdb("patientInfo").truncate();
-      });
+      // afterEach(async () => {
+      //   await patientdb("patientInfo").truncate();
+      // });
       it("should return status 201", async () => {
         const testPatient = {
           firstName: "Gregor",
@@ -164,7 +164,7 @@ describe("patient-router.js", () => {
           .post("/api/patients")
           .send(testPatient);
         expect(response.body).toEqual({
-          id: 1,
+          id: 4,
           firstName: "Gregor",
           lastName: "Clegane",
           gender: "M",
@@ -189,6 +189,18 @@ describe("patient-router.js", () => {
           .send(testPatient);
         expect(response.status).toBe(406);
       });
+    });
+  });
+
+  describe("delete /api/patients/:id", () => {
+    it("should respond with 204 status", async () => {
+      let response = await request(patientServer).delete("/api/patients/3");
+      expect(response.status).toBe(200);
+    });
+
+    it("should respond with 404 status", async () => {
+      let response = await request(patientServer).delete("/api/patients/10");
+      expect(response.status).toBe(404);
     });
   });
 });
